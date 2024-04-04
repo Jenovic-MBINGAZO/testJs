@@ -1,0 +1,71 @@
+name: Autograding Tests
+'on':
+- push
+- workflow_dispatch
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: averageAllNumbers.js
+      id: averageallnumbers-js
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: averageAllNumbers.js
+        setup-command: npm install
+        command: jest averageAllNumbers.js
+        timeout: 10
+        max-score: 3
+    - name: displayAllMultiplicationTables.js
+      id: displayallmultiplicationtables-js
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: displayAllMultiplicationTables.js
+        setup-command: npm install
+        command: jest displayAllMultiplicationTables.js
+        timeout: 10
+        max-score: 3
+    - name: displayNumbers.js
+      id: displaynumbers-js
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: displayNumbers.js
+        setup-command: npm install
+        command: jest displayNumbers.js
+        timeout: 10
+        max-score: 3
+    - name: displayOddNumbers.js
+      id: displayoddnumbers-js
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: displayOddNumbers.js
+        setup-command: npm install
+        command: jest displayOddNumbers.js
+        timeout: 10
+        max-score: 3
+    - name: sumAllNumbers.js
+      id: sumallnumbers-js
+      uses: education/autograding-command-grader@v1
+      with:
+        test-name: sumAllNumbers.js
+        setup-command: npm install
+        command: jest sumAllNumbers.js
+        timeout: 10
+        max-score: 3
+    - name: Autograding Reporter
+      uses: education/autograding-grading-reporter@v1
+      env:
+        AVERAGEALLNUMBERS-JS_RESULTS: "${{steps.averageallnumbers-js.outputs.result}}"
+        DISPLAYALLMULTIPLICATIONTABLES-JS_RESULTS: "${{steps.displayallmultiplicationtables-js.outputs.result}}"
+        DISPLAYNUMBERS-JS_RESULTS: "${{steps.displaynumbers-js.outputs.result}}"
+        DISPLAYODDNUMBERS-JS_RESULTS: "${{steps.displayoddnumbers-js.outputs.result}}"
+        SUMALLNUMBERS-JS_RESULTS: "${{steps.sumallnumbers-js.outputs.result}}"
+      with:
+        runners: averageallnumbers-js,displayallmultiplicationtables-js,displaynumbers-js,displayoddnumbers-js,sumallnumbers-js
