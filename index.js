@@ -31,7 +31,7 @@ function displayOddNumbers(n) {
 }
 }
 const n = 10;
-console.log(displayOddNumbers(0));
+console.log(displayOddNumbers(n));
 
 
 
