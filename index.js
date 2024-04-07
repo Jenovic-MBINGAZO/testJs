@@ -33,10 +33,6 @@ function displayOddNumbers(n) {
 const n = 10;
 console.log(displayOddNumbers(n));
 
-
-
-
-
 // 3. Écrivez une fonction qui retourne une chaîne de caractère qui contient toutes les tables de multiplication de 1 à 10.
 
 /*
@@ -61,7 +57,7 @@ console.log(displayOddNumbers(n));
 
 function displayAllMultiplicationTables() {
     let $multiplicationTables = '';
-
+    
     for (let $i = 1; $i <= 10; $i++) {
         for (let $j = 1; $j <= 10; $j++) {
             $multiplicationTables += `${$i} * ${$j} = ${$i * $j}\n`;
